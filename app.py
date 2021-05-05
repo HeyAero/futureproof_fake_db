@@ -7,7 +7,14 @@ CORS(app)
 
 @app.route('/')
 def home():
-    return jsonify({'message': 'Hello from Flask!'}), 200
+    return jsonify({'message': 'Hello from futureproof DB!'}), 200
+
+@app.route('/people', methods=['GET', 'POST'])
+def people_handler():
+  fns = {
+    'GET': people.index,
+    'POST': people.create
+  }
 
 if __name__ == "__main__":
     app.run(debug=True)
