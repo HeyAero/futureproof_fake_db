@@ -12,6 +12,6 @@ def index(req):
 
 def create(req):
   new_person = req.get_json()
-  new_person['id'] = sorted([p['id'] for p in people])[-1] + 1
+  new_person['id'] = sorted([p['id'] for p in mock_people])[-1] + 1
   mock_people.append(new_person)
   return new_person, 201
