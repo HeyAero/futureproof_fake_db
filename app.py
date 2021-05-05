@@ -43,5 +43,11 @@ def init_db():
       db.cursor().executescript(f.read())
     db.commit()
 
+def query_db(query, args=(), one=False):
+  cur = get_db().execute(query, args)
+  rv = cur.fetchall()
+  cur.close()
+  return (rv[0] if rv else None) if one else rv
+
 if __name__ == "__main__":
     app.run(debug=True)
