@@ -8,8 +8,9 @@ def index(req):
 
 def create(req):
   new_person = req.get_json()
-  query = 'insert into people (name, teacher) values (?, ?);'
-  arguments = (new_person["name"], new_person["teacher"])
-  return_value = app.query_db(query, arguments)
-  print(return_value)
-  return return_value, 201
+
+  return_value = app.query_db('insert into people (name, teacher) values (?, ?);', (new_person["name"], new_person["teacher"]))
+
+  check_value = app.query_db('select id from people where name = (?);', (new_person["name"],))
+
+  return check_value, 201
