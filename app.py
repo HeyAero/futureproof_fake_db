@@ -45,6 +45,7 @@ def init_db():
 
 def query_db(query, args=(), one=False):
   cur = get_db().execute(query, args)
+  get_db().commit()
   rv = cur.fetchall()
   cur.close()
   return (rv[0] if rv else None) if one else rv
