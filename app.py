@@ -50,5 +50,17 @@ def query_db(query, args=(), one=False):
   cur.close()
   return (rv[0] if rv else None) if one else rv
 
+@app.errorhandler(exceptions.NotFound)
+def handle_404(err):
+  return {'message': f'Could not be found: {err}'}, 404
+
+@app.errorhandler(exceptions.BadRequest)
+def handle_400(err):
+    return {'message': f'Bad request: {err}'}, 400
+
+@app.errorhandler(exceptions.InternalServerError)
+def handle_500(err):
+    return {'message': f"Internal Server Error: {err}"}, 500
+
 if __name__ == "__main__":
     app.run(debug=True)
