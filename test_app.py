@@ -1,4 +1,5 @@
 import json
+from controllers import people
 
 class TestAPICase():
   def test_welcome(self, api):
@@ -10,6 +11,17 @@ class TestAPICase():
     res = api.get('/people')
     assert res.status == '200 OK'
     assert len(res.json) == 4
+
+  def test_get_person(self, api):
+    check_data = [1,"Beth","True"]
+    res = api.get('/people/1')
+    assert res.status == '200 OK'
+    assert res.json[0] == check_data
+
+  def test_get_person_error(self, api):
+    res = api.get('/people/6')
+    assert res.status == '400 BAD REQUEST'
+    assert 'Bad request:' in res.json['message']
 
   def test_post_people(self, api):
     mock_data = json.dumps({'name': 'Billy', 'teacher': 'False'})

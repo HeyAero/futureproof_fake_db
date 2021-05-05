@@ -23,6 +23,14 @@ def people_handler():
   resp, code = fns[request.method](request)
   return jsonify(resp), code
 
+@app.route('/people/<int:people_id>', methods=['GET'])
+def person_handler(people_id):
+  fns = {
+    'GET': people.show
+  }
+  resp, code = fns[request.method](request, people_id)
+  return jsonify(resp), code
+
 def get_db():
   db = getattr(g, '_database', None)
   if db is None:
